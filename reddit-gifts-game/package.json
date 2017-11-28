@@ -1,0 +1,29 @@
+{
+  "name": "reddit-gifts-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "web/js/game.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-server-livereload": "^1.9.2",
+    "gulp-uglify": "^3.0.0",
+    "phaser": "^2.6.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gondrup/reddit-gifts-game.git"
+  },
+  "author": "Adrian Harding",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gondrup/reddit-gifts-game/issues"
+  },
+  "homepage": "https://github.com/gondrup/reddit-gifts-game#readme"
+}

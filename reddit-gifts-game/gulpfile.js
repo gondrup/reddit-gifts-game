@@ -7,25 +7,26 @@ let source = require('vinyl-source-stream');
 let buffer = require('vinyl-buffer');
 let sourcemaps = require('gulp-sourcemaps');
 let gutil = require('gulp-util');
+let babelify = require('babelify');
 
 gulp.task('scripts', () => {
-    let b = browserify({
-        entries: ['./src/js/game.js'],
+    browserify({
+        entries: ['src/js/game.js'],
         debug: true
-    });
-
-    return b.bundle()
-        .pipe(source('./web/js/game.js'))
-        .pipe(buffer())
-        .pipe(sourcemaps.init({loadMaps: true}))
-        // Add transformation tasks to the pipeline here.
-        .pipe(babel({
-            presets: ['es2015']
-        }))
-        .pipe(uglify())
-        .on('error', gutil.log)
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./web/js/'));
+    })
+    .transform(babelify)
+    .bundle()
+    .on('error', err => {
+	    util.log("Browserify Error", util.colors.red(err.message))
+	})
+	.pipe(source('game.js'))
+    //.pipe(buffer())
+    //.pipe(sourcemaps.init({loadMaps: true}))
+    // Add transformation tasks to the pipeline here.
+    //.pipe(uglify())
+    .on('error', gutil.log)
+    //.pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('./web/js'));
 
     /*return gulp.src('src/js/game.js')
         .pipe(babel({

@@ -1,39 +1,37 @@
 let gulp = require('gulp');
-let babel = require('gulp-babel');
 let uglify = require('gulp-uglify');
 let webserver = require('gulp-webserver');
 let browserify = require('browserify');
 let source = require('vinyl-source-stream');
 let buffer = require('vinyl-buffer');
+let transform = require('vinyl-transform');
 let sourcemaps = require('gulp-sourcemaps');
-let gutil = require('gulp-util');
 let babelify = require('babelify');
 
 gulp.task('scripts', () => {
-    browserify({
+    return browserify({
+            entries: ['src/js/game.js'],
+            debug: true
+        })
+        .transform("babelify", { presets: ["es2015"] })
+        .bundle()
+        .pipe(source('game.js'))
+        .pipe(gulp.dest('./web/js'));
+});
+
+gulp.task('scripts-dist', () => {
+    return browserify({
         entries: ['src/js/game.js'],
         debug: true
     })
-    .transform(babelify)
+    .transform("babelify", { presets: ["es2015"] })
     .bundle()
-    .on('error', err => {
-	    util.log("Browserify Error", util.colors.red(err.message))
-	})
-	.pipe(source('game.js'))
-    //.pipe(buffer())
-    //.pipe(sourcemaps.init({loadMaps: true}))
-    // Add transformation tasks to the pipeline here.
-    //.pipe(uglify())
-    .on('error', gutil.log)
-    //.pipe(sourcemaps.write('./'))
+    .pipe(source('game.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init())
+    .pipe(uglify())
+    .pipe(sourcemaps.write('./maps'))
     .pipe(gulp.dest('./web/js'));
-
-    /*return gulp.src('src/js/game.js')
-        .pipe(babel({
-            presets: ['es2015']
-        }))
-        .pipe(uglify())
-        .pipe(gulp.dest('web/js'));*/
 });
 
 gulp.task('webserver', function() {
@@ -49,4 +47,5 @@ gulp.task('watch', () => {
     gulp.watch('src/js/*.js', ['scripts']);
 });
 
+gulp.task('build', ['scripts-dist']);
 gulp.task('default', ['webserver', 'scripts', 'watch']);

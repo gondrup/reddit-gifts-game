@@ -2,6 +2,8 @@
 
 Short game in three sections, one for each padlock number
 
+0. Introduction to controls
+
 1. Platform game set in Milan as Itlian guy
 	- Use camera flash to kill invading monsters
 	- Get on plane to BBT research

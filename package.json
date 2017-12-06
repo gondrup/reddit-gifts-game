@@ -1,8 +1,8 @@
 {
-    "name": "PhaserES6Webpack",
-    "version": "1.1.0",
+    "name": "reddit-gifts-game",
+    "version": "1.0.0",
     "description": "",
-    "author": "leandro cabrera <leandcabrera@gmail.com>",
+    "author": "Adrian Harding",
     "main": "index.js",
     "scripts": {
         "dev": "webpack",
@@ -10,7 +10,7 @@
         "cordova": "webpack --config webpack.cordova.config.js",
         "test": "eslint ./src/**/**.js"
     },
-    "license": "MIT",
+    "license": "ISC",
     "devDependencies": {
         "babel-core": "^6.25.0",
         "babel-eslint": "^7.2.3",

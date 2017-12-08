@@ -2,6 +2,7 @@
 import Phaser from 'phaser'
 
 import Player from '../sprites/Player'
+import Obstacle from '../sprites/Obstacle'
 
 export default class extends Phaser.State {
     preload() {
@@ -23,8 +24,21 @@ export default class extends Phaser.State {
             asset: 'dude'
         });
         this.game.add.existing(this.player);
+
+        this.obstacle = new Obstacle({
+            game: this.game,
+            x: this.game.world.width,
+            y: this.game.world.height - 16,
+            asset: 'dude'
+        });
+        this.game.add.existing(this.obstacle);
     }
 
     update() {
+        this.game.physics.arcade.collide(this.obstacle, this.player, this.obstacleHitPlayer);
+    }
+
+    obstacleHitPlayer() {
+        //alert("hit!");
     }
 }

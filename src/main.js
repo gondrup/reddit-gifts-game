@@ -27,8 +27,26 @@ class Game extends Phaser.Game {
   }
 }
 
-window.game = new Game()
+window.scrollTo(0,1);
 
+window.game = new Game();
+
+/*
+//  The Google WebFont Loader will look for this object, so create it before loading the script.
+window.WebFontConfig = {
+
+    //  'active' means all requested fonts have finished loading
+    //  We set a 1 second delay before calling 'createText'.
+    //  For some reason if we don't the browser cannot render the text the first time it's created.
+    active: function() {  },
+
+    //  The Google Fonts we want to load (specify as many as you like in the array)
+    google: {
+        families: ['Revalia']
+    }
+
+};
+*/
 if (window.cordova) {
   var app = {
     initialize: function () {

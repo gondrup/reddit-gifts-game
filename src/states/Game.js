@@ -8,6 +8,17 @@ export default class extends Phaser.State {
     preload() {
         const ASSET_DIR = 'assets';
 
+        //  Load the Google WebFont Loader script
+        //this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+
+        // make the game occuppy all available space, but respecting
+        // aspect ratio – with letterboxing if needed
+        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        this.game.scale.pageAlignHorizontally = true;
+        this.game.scale.pageAlignVertically = true;
+
+        this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+
         this.game.world.resize(5000, this.game.height);
 
         this.game.load.audio('bg-music', [ASSET_DIR + '/space.mp3']);
@@ -62,6 +73,8 @@ export default class extends Phaser.State {
         this.addObstacle('mushroom06', 1410);
         this.addObstacle('mushroom07', 1610);
 
+        //this.game.input.onDown.add(this.goFull, this);
+
         //  - this.game.cache.getImage('mushroom1').height
 
         //this.music = this.game.add.audio('bg-music');
@@ -76,6 +89,14 @@ export default class extends Phaser.State {
         });
     }
 
+    goFull() {
+        if (!this.game.scale.isFullScreen) {
+            //this.game.scale.stopFullScreen();
+        //} else {
+            this.game.scale.startFullScreen(false);
+        }
+    }
+
     obstacleHitPlayer() {
         this.gameOver();
     }
@@ -83,5 +104,45 @@ export default class extends Phaser.State {
     gameOver() {
         console.log("game over");
         this.player.running = false;
+
+        /*this.text = this.game.add.text(this.game.centerX, this.game.centerY, "- phaser -\nrocking with\ngoogle web fonts");
+        this.text.anchor.setTo(0.5);
+
+        this.text.font = 'Revalia';
+        this.text.fontSize = 60;
+
+        //  x0, y0 - x1, y1
+        let grd = this.text.context.createLinearGradient(0, 0, 0, this.text.canvas.height);
+        grd.addColorStop(0, '#8ED6FF');
+        grd.addColorStop(1, '#004CB3');
+        this.text.fill = grd;
+
+        this.text.align = 'center';
+        this.text.stroke = '#000000';
+        this.text.strokeThickness = 2;
+        this.text.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);*/
+
+        //let style = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
+
+        //  The Text is positioned at 0, 100
+        /*let text = this.game.add.text(this.game.world.centerX, this.game.world.centerX, "Game Over!", style);
+        text.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);*/
+
+        let text = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) - 30, "Game Over", {font: "14px Arial", fill: "#ffffff", stroke: '#000000', strokeThickness: 3});
+        text.anchor.setTo(0.5, 0.5);
+        text.fixedToCamera = true;
+
+        let text2 = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) + 30, "Retry?", {font: "12px Arial", fill: "#ffffff", stroke: '#000000', strokeThickness: 3});
+        text2.anchor.setTo(0.5, 0.5);
+        text2.fixedToCamera = true;
+
+        this.game.input.onDown.add(this.restart, this);
+
+        //  We'll set the bounds to be from x0, y100 and be 800px wide by 100px high
+        //text.setTextBounds(0, 100, 800, 100);
+    }
+
+    restart() {
+        this.state.start('Game');
     }
 }

@@ -6,8 +6,8 @@ export default class extends Phaser.Sprite {
 
         this.game = game;
 
-        this.anchor.setTo(0.5);
-        this.scale.setTo(1);
+        //this.anchor.setTo(0.5);
+        //this.scale.setTo(1);
 
         //  We need to enable physics on the player
         this.game.physics.arcade.enable(this);
@@ -25,6 +25,7 @@ export default class extends Phaser.Sprite {
         this.animations.play('right');
 
         this.spacebarKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        this.game.input.onDown.add(this.jump, this);
 
         this.running = true;
     }
@@ -34,8 +35,8 @@ export default class extends Phaser.Sprite {
             //  Reset the player velocity (movement)
             this.body.velocity.x = 100;
 
-            if (this.spacebarKey.downDuration(250)/* && this.body.touching.down*/) {
-                this.body.velocity.y = -350;
+            if ((this.spacebarKey.downDuration(250))/* && this.body.touching.down*/) {
+                this.jump();
             }
 
             this.animations.play('right');
@@ -69,5 +70,9 @@ export default class extends Phaser.Sprite {
             this.body.velocity.x = 0;
             this.frame = 5;
         }
+    }
+
+    jump() {
+        this.body.velocity.y = -350;
     }
 }

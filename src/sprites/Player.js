@@ -25,7 +25,11 @@ export default class extends Phaser.Sprite {
         this.animations.play('right');
 
         this.spacebarKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        this.game.input.onDown.add(this.jump, this);
+        this.game.input.onDown.add(() => {
+            if (this.body.touching.down) {
+                this.jump() }
+            }
+            , this);
 
         this.running = true;
     }
@@ -33,13 +37,18 @@ export default class extends Phaser.Sprite {
     update () {
         if (this.running) {
             //  Reset the player velocity (movement)
-            this.body.velocity.x = 100;
+            this.body.velocity.x = 150;
 
-            if ((this.spacebarKey.downDuration(250))/* && this.body.touching.down*/) {
+            if ((this.spacebarKey.downDuration(250)) && this.body.touching.down) {
                 this.jump();
             }
 
-            this.animations.play('right');
+            if (this.body.touching.down) {
+                this.animations.play('right');
+            } else {
+                this.animations.stop();
+                this.frame = 6;
+            }
 
             return;
 
@@ -73,6 +82,6 @@ export default class extends Phaser.Sprite {
     }
 
     jump() {
-        this.body.velocity.y = -350;
+        this.body.velocity.y = -400;
     }
 }

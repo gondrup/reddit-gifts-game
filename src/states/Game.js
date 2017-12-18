@@ -13,9 +13,9 @@ export default class extends Phaser.State {
 
         // make the game occuppy all available space, but respecting
         // aspect ratio – with letterboxing if needed
-        /*this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        /*this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;*/
         this.game.scale.pageAlignHorizontally = true;
-        this.game.scale.pageAlignVertically = true;*/
+        this.game.scale.pageAlignVertically = true;
 
         this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 

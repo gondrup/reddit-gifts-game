@@ -185,7 +185,7 @@ export default class extends Phaser.State {
         text.anchor.setTo(0.5, 0.5);
         text.fixedToCamera = true;
 
-        let text2 = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) + 30, "The code is: 4872", {font: "14px Arial", fill: "#ffffff", stroke: '#000000', strokeThickness: 3});
+        let text2 = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) + 30, "The code is:    1 8 2", {font: "14px Arial", fill: "#ffffff", stroke: '#000000', strokeThickness: 3});
         text2.anchor.setTo(0.5, 0.5);
         text2.fixedToCamera = true;
     }

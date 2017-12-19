@@ -16,6 +16,7 @@ export default class extends Phaser.Sprite {
         this.body.bounce.y = 0;
         this.body.gravity.y = 1000;
         this.body.collideWorldBounds = true;
+        this.scale.setTo(0.9);
 
         //  Our two animations, walking left and right.
         this.animations.add('left', [0, 1, 2, 3], 10, true);

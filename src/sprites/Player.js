@@ -85,4 +85,8 @@ export default class extends Phaser.Sprite {
     jump() {
         this.body.velocity.y = -400;
     }
+
+    freeze() {
+        this.body.gravity.y = 0;
+    }
 }

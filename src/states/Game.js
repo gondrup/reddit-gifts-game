@@ -1,8 +1,9 @@
 /* globals __DEV__ */
-import Phaser from 'phaser'
+import Phaser from 'phaser';
 
-import Player from '../sprites/Player'
-import Obstacle from '../sprites/Obstacle'
+import Player from '../sprites/Player';
+import Obstacle from '../sprites/Obstacle';
+import Ship from '../sprites/Ship';
 
 export default class extends Phaser.State {
     preload() {
@@ -38,6 +39,8 @@ export default class extends Phaser.State {
         this.game.load.image('mushroom10', ASSET_DIR + '/plantshrooms/plantshrooms_10_96x96.png');
 
         this.game.load.image('ground', ASSET_DIR + '/platform.png');
+
+        this.game.load.spritesheet('ship', ASSET_DIR + '/spaceship.png', 54, 31);
     }
 
     addObstacle(assetKey, x) {
@@ -99,9 +102,29 @@ export default class extends Phaser.State {
         this.addPlatform(3199, 310, 75);
         this.addObstacle('mushroom06', 3310);
 
+        this.addPlatform(3682, 310, 75);
+        this.addObstacle('mushroom07', 3757);
+        this.addPlatform(3802, 250, 75);
+        this.addObstacle('mushroom08', 3823);
+        this.addPlatform(3932, 190, 75);
+        this.addObstacle('mushroom09', 3878);
+
+        this.addObstacle('mushroom04', 3976);
+        this.addObstacle('mushroom04', 4008);
+        this.addObstacle('mushroom04', 4040);
+        this.addObstacle('mushroom05', 4071);
+        this.addObstacle('mushroom04', 4108);
+        this.addObstacle('mushroom04', 4137);
+        this.addObstacle('mushroom09', 4166);
+        this.addObstacle('mushroom10', 4233);
+        this.addObstacle('mushroom07', 4331);
+        this.addObstacle('mushroom08', 4419);
+        this.addObstacle('mushroom10', 4463);
+
         this.player = new Player({
             game: this.game,
             x: this.game.width / 2 - this.game.cache.getImage('dude').width,
+            //x: 3660,
             y: this.game.world.height / 2,
             asset: 'dude'
         });
@@ -115,6 +138,14 @@ export default class extends Phaser.State {
 
         //this.music = this.game.add.audio('bg-music');
         //this.music.play();
+
+        this.ship = new Ship({
+            game: this.game,
+            x: 4092,
+            y: 159,
+            asset: 'ship'
+        });
+        this.game.add.existing(this.ship);
     }
 
     update() {
@@ -124,13 +155,15 @@ export default class extends Phaser.State {
 
         this.game.physics.arcade.collide(this.obstacles, this.player, () => self.obstacleHitPlayer());
 
+        this.game.physics.arcade.collide(this.ship, this.player, () => self.playerHitShip());
+
         /*this.obstacles.forEach((item) => {
             this.game.physics.arcade.collide(item, this.player, () => self.obstacleHitPlayer())
         });*/
 
-        if (this.player.body.x > 4000) {
+        /*if (this.player.body.x > 4000) {
             this.gameComplete();
-        }
+        }*/
     }
 
     goFull() {
@@ -145,9 +178,14 @@ export default class extends Phaser.State {
         this.gameOver();
     }
 
+    playerHitShip() {
+        this.gameComplete();
+    }
+
     gameOver() {
         //console.log("game over");
         this.player.running = false;
+        this.player.freeze();
 
         /*this.text = this.game.add.text(this.game.centerX, this.game.centerY, "- phaser -\nrocking with\ngoogle web fonts");
         this.text.anchor.setTo(0.5);
@@ -191,7 +229,7 @@ export default class extends Phaser.State {
 
         this.player.running = false;
 
-        let text = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) - 30, "CONGRATULATIONS!", {font: "14px Arial", fill: "#ffffff", stroke: '#000000', strokeThickness: 3});
+        let text = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) - 150, "CONGRATULATIONS!", {font: "14px Arial", fill: "#ffffff", stroke: '#000000', strokeThickness: 3});
         text.anchor.setTo(0.5, 0.5);
         text.fixedToCamera = true;
 

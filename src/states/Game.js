@@ -26,7 +26,7 @@ export default class extends Phaser.State {
         this.game.load.audio('success', [ASSET_DIR + '/success.mp3']);
         this.game.load.audio('game-over', [ASSET_DIR + '/game-over.mp3']);
 
-        this.game.load.image('sky', ASSET_DIR + '/milky_way_stars_night_sky_space_97654_800x600.jpg');
+        this.game.load.image('sky', ASSET_DIR + '/tileable-classic-nebula-space-patterns-7-con.jpg');
         this.game.load.spritesheet('dude', ASSET_DIR + '/dude-edit.png', 32, 48);
 
         this.game.load.image('mushroom01', ASSET_DIR + '/plantshrooms/plantshrooms_01_10x11.png');
@@ -76,6 +76,7 @@ export default class extends Phaser.State {
     create() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
+        this.game.stage.backgroundColor = "#000000";
         this.game.add.tileSprite(0, 0, 5000, this.game.world.height, 'sky');
 
         this.platforms = this.game.add.group();
@@ -231,15 +232,19 @@ export default class extends Phaser.State {
         /*let text = this.game.add.text(this.game.world.centerX, this.game.world.centerX, "Game Over!", style);
         text.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);*/
 
-        let text = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) - 30, "Game Over", {font: "14px Arial", fill: "#ffffff", stroke: '#000000', strokeThickness: 3});
+        /*let text = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) - 30, "Game Over", {font: "14px Bangers", fill: "#ffffff", stroke: '#000000', strokeThickness: 3});
         text.anchor.setTo(0.5, 0.5);
         text.fixedToCamera = true;
 
-        let text2 = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) + 30, "Retry?", {font: "12px Arial", fill: "#ffffff", stroke: '#000000', strokeThickness: 3});
+        let text2 = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) + 30, "Retry?", {font: "12px Bangers", fill: "#ffffff", stroke: '#000000', strokeThickness: 3});
         text2.anchor.setTo(0.5, 0.5);
-        text2.fixedToCamera = true;
+        text2.fixedToCamera = true;*/
 
-        this.game.input.onDown.add(this.restart, this);
+        let text = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2), 'Game Over!\n\n Click here to retry.', { font: '26px Bangers', fill: '#dddddd', align: 'center' });
+        text.anchor.setTo(0.5, 0.5);
+        text.fixedToCamera = true;
+
+        this.game.input.onTap.add(this.restart, this);
 
         //  We'll set the bounds to be from x0, y100 and be 800px wide by 100px high
         //text.setTextBounds(0, 100, 800, 100);
@@ -255,8 +260,8 @@ export default class extends Phaser.State {
 
         this.player.running = false;
 
-        let text = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) - 150, "CONGRATULATIONS!", {
-            font: "14px Arial",
+        /*let text = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) - 150, "CONGRATULATIONS!", {
+            font: "14px Bangers",
             fill: "#ffffff",
             stroke: '#000000',
             strokeThickness: 3
@@ -265,13 +270,17 @@ export default class extends Phaser.State {
         text.fixedToCamera = true;
 
         let text2 = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) + 30, "The code is:    1 8 2", {
-            font: "14px Arial",
+            font: "14px Bangers",
             fill: "#ffffff",
             stroke: '#000000',
             strokeThickness: 3
         });
         text2.anchor.setTo(0.5, 0.5);
-        text2.fixedToCamera = true;
+        text2.fixedToCamera = true;*/
+
+        let text = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 100 * 10), 'CONGRATULATIONS!\nThe code is:    1 8 2', { font: '26px Bangers', fill: '#dddddd', align: 'center' });
+        text.anchor.setTo(0.5, 0.5);
+        text.fixedToCamera = true;
     }
 
     restart() {

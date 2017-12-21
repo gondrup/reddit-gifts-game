@@ -240,7 +240,7 @@ export default class extends Phaser.State {
         text2.anchor.setTo(0.5, 0.5);
         text2.fixedToCamera = true;*/
 
-        let text = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2), 'Game Over!\n\n Click here to retry.', { font: '26px Bangers', fill: '#dddddd', align: 'center' });
+        let text = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2), 'Game Over!\n\n Press here to retry.', { font: '26px Bangers', fill: '#dddddd', align: 'center' });
         text.anchor.setTo(0.5, 0.5);
         text.fixedToCamera = true;
 
@@ -278,7 +278,7 @@ export default class extends Phaser.State {
         text2.anchor.setTo(0.5, 0.5);
         text2.fixedToCamera = true;*/
 
-        let text = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 100 * 10), 'CONGRATULATIONS!\nThe code is:    1 8 2', { font: '26px Bangers', fill: '#dddddd', align: 'center' });
+        let text = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 100 * 10), 'CONGRATULATIONS!\nThe code is:    1 8 2 ', { font: '26px Bangers', fill: '#dddddd', align: 'center' });
         text.anchor.setTo(0.5, 0.5);
         text.fixedToCamera = true;
     }

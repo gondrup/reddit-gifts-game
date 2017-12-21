@@ -27,7 +27,7 @@ export default class extends Phaser.State {
 
         //this.add.tileSprite(0, 0, 760, this.game.world.height, 'sky');
 
-        let text = this.add.text(this.game.world.centerX, this.game.world.centerY, 'Welcome Georg_Lie, your code is being held hostage on another planet.\n\nClick here to retrieve it.', { font: '26px Bangers', fill: '#dddddd', align: 'center' });
+        let text = this.add.text(this.game.world.centerX, this.game.world.centerY, 'Welcome Georg_Lie \nYour code is being \nheld hostage on another planet \n\nPress here to retrieve it ', { font: '26px Bangers', fill: '#dddddd', align: 'center' });
         text.anchor.setTo(0.5, 0.5);
 
         this.game.input.onDown.add(this.start, this);

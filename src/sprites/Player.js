@@ -32,11 +32,11 @@ export default class extends Phaser.Sprite {
             }
             , this);
 
-        this.bodyClickListener = document.addEventListener('mousedown', (e) => {
+        /*this.bodyClickListener = document.addEventListener('mousedown', (e) => {
             if (this.body.touching.down) {
                 this.jump();
             }
-        }, false);
+        }, false);*/
 
         this.running = true;
     }

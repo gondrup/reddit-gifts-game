@@ -23,8 +23,8 @@ export default class extends Phaser.State {
         this.game.world.resize(5000, this.game.height);
 
         this.game.load.audio('bg-music', [ASSET_DIR + '/loading-loop-trimmed.mp3']);
-
         this.game.load.audio('success', [ASSET_DIR + '/success.mp3']);
+        this.game.load.audio('game-over', [ASSET_DIR + '/game-over.mp3']);
 
         this.game.load.image('sky', ASSET_DIR + '/milky_way_stars_night_sky_space_97654_800x600.jpg');
         this.game.load.spritesheet('dude', ASSET_DIR + '/dude-edit.png', 32, 48);
@@ -43,6 +43,8 @@ export default class extends Phaser.State {
         this.game.load.image('ground', ASSET_DIR + '/platform.png');
 
         this.game.load.spritesheet('ship', ASSET_DIR + '/spaceship.png', 54, 31);
+
+        this.complete = false;
     }
 
     addObstacle(assetKey, x) {
@@ -156,6 +158,7 @@ export default class extends Phaser.State {
         this.game.add.existing(this.ship);
 
         this.successSound = this.game.add.audio('success', 1, false);
+        this.gameOverSound = this.game.add.audio('game-over', 1, false);
     }
 
     update() {
@@ -164,7 +167,6 @@ export default class extends Phaser.State {
         let playerHitPlatform = this.game.physics.arcade.collide(this.player, this.platforms);
 
         this.game.physics.arcade.collide(this.obstacles, this.player, () => self.obstacleHitPlayer());
-
         this.game.physics.arcade.collide(this.ship, this.player, () => self.playerHitShip());
 
         /*this.obstacles.forEach((item) => {
@@ -185,17 +187,26 @@ export default class extends Phaser.State {
     }
 
     obstacleHitPlayer() {
-        this.gameOver();
+        if (!this.complete) {
+            this.gameOver();
+        }
     }
 
     playerHitShip() {
-        this.gameComplete();
+        if (!this.complete) {
+            this.gameComplete();
+        }
     }
 
     gameOver() {
+        this.complete = true;
+
         //console.log("game over");
         this.player.running = false;
         this.player.freeze();
+
+        this.music.stop();
+        this.gameOverSound.play();
 
         /*this.text = this.game.add.text(this.game.centerX, this.game.centerY, "- phaser -\nrocking with\ngoogle web fonts");
         this.text.anchor.setTo(0.5);
@@ -235,6 +246,8 @@ export default class extends Phaser.State {
     }
 
     gameComplete() {
+        this.complete = true;
+
         this.music.stop();
         this.successSound.play();
 
@@ -242,11 +255,21 @@ export default class extends Phaser.State {
 
         this.player.running = false;
 
-        let text = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) - 150, "CONGRATULATIONS!", {font: "14px Arial", fill: "#ffffff", stroke: '#000000', strokeThickness: 3});
+        let text = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) - 150, "CONGRATULATIONS!", {
+            font: "14px Arial",
+            fill: "#ffffff",
+            stroke: '#000000',
+            strokeThickness: 3
+        });
         text.anchor.setTo(0.5, 0.5);
         text.fixedToCamera = true;
 
-        let text2 = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) + 30, "The code is:    1 8 2", {font: "14px Arial", fill: "#ffffff", stroke: '#000000', strokeThickness: 3});
+        let text2 = this.game.add.text(this.game.camera.width / 2, (this.game.camera.height / 2) + 30, "The code is:    1 8 2", {
+            font: "14px Arial",
+            fill: "#ffffff",
+            stroke: '#000000',
+            strokeThickness: 3
+        });
         text2.anchor.setTo(0.5, 0.5);
         text2.fixedToCamera = true;
     }
